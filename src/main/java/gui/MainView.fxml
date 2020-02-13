@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+   <content>
+      <VBox prefHeight="417.0" prefWidth="714.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Registro">
+                  <items>
+                    <MenuItem fx:id="menuItemCadInstituicao" mnemonicParsing="false" onAction="#onMenuItemCadInstituicaoAction" text="Cadastro Instituição" />
+                        <MenuItem fx:id="menuItemCadFuncionario" mnemonicParsing="false" onAction="#onMenuItemCadFuncionarioAction" text="Cadastro Funcionario" />
+                        <Menu mnemonicParsing="false" text="Registro de Usuario">
+                          <items>
+                            <MenuItem fx:id="menuItemFichaMatricula" mnemonicParsing="false" onAction="#onMenuItemFichaMatriculaAction" text="Ficha de Matrícula" />
+                              <MenuItem fx:id="menuItemFichaSaude" mnemonicParsing="false" onAction="#onMenuItemFichaSaudeAction" text="Ficha de Saúde" />
+                          </items>
+                        </Menu>
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Turma">
+                  <items>
+                    <MenuItem fx:id="menuItemCadTurma1" mnemonicParsing="false" onAction="#onMenuItemCadTurma1Action" text="Turma 1" />
+                        <MenuItem fx:id="menuItemCadTurma2" mnemonicParsing="false" onAction="#onMenuItemCadTurma2Action" text="Turma 2" />
+                        <MenuItem fx:id="menuItemCadTurma3" mnemonicParsing="false" onAction="#onMenuItemCadTurma3Action" text="Turma 3" />
+                        <MenuItem fx:id="menuItemCadTurma4" mnemonicParsing="false" onAction="#onMenuItemCadTurma4Action" text="Turma 4" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Atendimentos">
+                    <items>
+                      <MenuItem fx:id="menuItemAtendimento" mnemonicParsing="false" onAction="#onMenuItemAtendimentoAction" text="Formulários" />
+                    </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="Sobre">
+                  <items>
+                    <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobreAction" text="Instituição" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ImageView fitHeight="417.0" fitWidth="714.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@css/SistemaDaInformação.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
