@@ -2,13 +2,15 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.ricdev.formulario.MainFX;
 import com.ricdev.formulario.connection.DbIntegrityException;
-import com.ricdev.formulario.model.entities.Instituicao;
+import com.ricdev.formulario.model.entities.Funcionario;
+import com.ricdev.formulario.model.services.FuncionarioService;
 import com.ricdev.formulario.model.services.InstituicaoService;
 
 import gui.css.ImageIcones;
@@ -34,39 +36,45 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class InstituicaoListController implements Initializable, DataChangeListener {
+public class FuncionarioListController implements Initializable, DataChangeListener {
 
-	private InstituicaoService service;
+	private FuncionarioService service;
+	
+	private ImageIcones escolherIcones = new ImageIcones();
+	
 
-	private ImageIcones iconEdit = new ImageIcones();
-	private ImageIcones iconDelete = new ImageIcones();
-
 	@FXML
-	private TableView<Instituicao> tableViewInstituicao;
+	private TableView<Funcionario> tableViewFuncionario;
 	@FXML
-	private TableColumn<Instituicao, Integer> tableColunmId;
+	private TableColumn<Funcionario, Integer> tableColunmId;
 	@FXML
-	private TableColumn<Instituicao, String> tableColunmNome;
+	private TableColumn<Funcionario, String> tableColunmNome;
 	@FXML
-	private TableColumn<Instituicao, Instituicao> tableColumnEDIT;
+	private TableColumn<Funcionario, String> tableColunmTelefone;
 	@FXML
-	private TableColumn<Instituicao, Instituicao> tableColumnREMOVE;
+	private TableColumn<Funcionario, LocalDate> tableColunmAniversario;
+	@FXML
+	private TableColumn<Funcionario, Double> tableColunmSalario;
+	@FXML
+	private TableColumn<Funcionario, Funcionario> tableColumnEDIT;
+	@FXML
+	private TableColumn<Funcionario, Funcionario> tableColumnREMOVE;
 
 	@FXML
 	private Button btNew;
 
-	private ObservableList<Instituicao> obsList;
+	private ObservableList<Funcionario> obsList;
 
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		System.out.println("Bt New");
 		Stage parentStage = Utils.currentStage(event);
-		Instituicao obj = new Instituicao();
-		createDialogForm(obj, "/gui/InstituicaoForm.fxml", parentStage);
+		Funcionario obj = new Funcionario();
+		createDialogForm(obj, "/gui/FuncionarioForm.fxml", parentStage);
 	}
 
 	// ===================== setters ===================//
-	public void setInstituicaoService(InstituicaoService service) {
+	public void setFuncionarioService(FuncionarioService service) {
 		this.service = service;
 	}
 
@@ -80,31 +88,42 @@ public class InstituicaoListController implements Initializable, DataChangeListe
 	private void initializeNodes() {
 		tableColunmId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColunmNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		tableColunmTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+		
+		Utils.formatTableColumnLocalDate(tableColunmAniversario, "dd/MM/yyyy");
+		tableColunmAniversario.setCellValueFactory(new PropertyValueFactory<>("aniversario"));
+		
+
+		
+
+		Utils.formatTableColumnDouble(tableColunmSalario, 2);
+		tableColunmSalario.setCellValueFactory(new PropertyValueFactory<>("salario"));
 
 		Stage stage = (Stage) MainFX.getMainScene().getWindow();
-		tableViewInstituicao.prefHeightProperty().bind(stage.heightProperty());
+		tableViewFuncionario.prefHeightProperty().bind(stage.heightProperty());
 	}
 
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("service was null");
 		}
-		List<Instituicao> list = service.findAll();
+		List<Funcionario> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
-		tableViewInstituicao.setItems(obsList);
+		tableViewFuncionario.setItems(obsList);
 
 		initEditButtons();
 		initRemoveButtons();
 	}
 
-	private void createDialogForm(Instituicao obj, String absoluteName, Stage parentStage) {
+	private void createDialogForm(Funcionario obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
-			InstituicaoFormController controller = loader.getController();
-			controller.setInstituicao(obj);
-			controller.setInstituicaoService(new InstituicaoService());
+			FuncionarioFormController controller = loader.getController();
+			controller.setFuncionario(obj);
+			controller.setServices(new FuncionarioService(), new InstituicaoService());
+			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
@@ -128,13 +147,13 @@ public class InstituicaoListController implements Initializable, DataChangeListe
 	}
 
 	private void initEditButtons() {
-		tableColumnEDIT.setPrefWidth(50.0);
+		tableColumnEDIT.setPrefWidth(50.0);		
 		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEDIT.setCellFactory(param -> new TableCell<Instituicao, Instituicao>() {
-			private final Button button = new Button("", new javafx.scene.image.ImageView(iconEdit.getImgEdit()));
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Funcionario, Funcionario>() {			
+			private final Button button = new Button("", new javafx.scene.image.ImageView(escolherIcones.getImgEdit()));
 
 			@Override
-			protected void updateItem(Instituicao obj, boolean empty) {
+			protected void updateItem(Funcionario obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
@@ -142,7 +161,7 @@ public class InstituicaoListController implements Initializable, DataChangeListe
 				}
 				setGraphic(button);
 				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/InstituicaoForm.fxml", Utils.currentStage(event)));
+						event -> createDialogForm(obj, "/gui/FuncionarioForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
@@ -150,11 +169,11 @@ public class InstituicaoListController implements Initializable, DataChangeListe
 	private void initRemoveButtons() {
 		tableColumnREMOVE.setPrefWidth(50.0);
 		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnREMOVE.setCellFactory(param -> new TableCell<Instituicao, Instituicao>() {
-			private final Button button = new Button("", new javafx.scene.image.ImageView(iconDelete.getImgDelete()));
+		tableColumnREMOVE.setCellFactory(param -> new TableCell<Funcionario, Funcionario>() {			
+			private final Button button = new Button("", new javafx.scene.image.ImageView(escolherIcones.getImgDelete()));
 
 			@Override
-			protected void updateItem(Instituicao obj, boolean empty) {
+			protected void updateItem(Funcionario obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
@@ -166,9 +185,9 @@ public class InstituicaoListController implements Initializable, DataChangeListe
 		});
 	}
 
-	private void removeEntity(Instituicao obj) {
+	private void removeEntity(Funcionario obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confimação", "Tem certeza que deseja deletar?");
-		
+
 		if (result.get() == ButtonType.OK) {
 			if (service == null) {
 				throw new IllegalStateException("service was null");
@@ -178,9 +197,10 @@ public class InstituicaoListController implements Initializable, DataChangeListe
 				updateTableView();
 			} catch (DbIntegrityException e) {
 				System.out.println(e.getMessage());
-				Alerts.showAlert("Erro ao remover o objeto", "Você não pode Remover esta entidade!!! \n "
-						+ "Alguem está Vinculada a ela!", e.getMessage(), AlertType.ERROR);
-			}			
+				Alerts.showAlert("Erro ao remover o objeto",
+						"Você não pode Remover esta entidade!!! \n " + "Alguem está Vinculada a ela!",
+						e.getMessage(), AlertType.ERROR);
+			}
 		}
 	}
 }

@@ -13,4 +13,5 @@ public interface FuncionarioDAO {
 	
 	Funcionario findById(Integer id);
 	List<Funcionario> findAll();
+	
 }

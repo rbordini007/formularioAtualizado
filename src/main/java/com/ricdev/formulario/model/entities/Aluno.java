@@ -10,40 +10,40 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+
 @Entity
-public class Funcionario implements Serializable{	
+public class Aluno  implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
 	private String nome;
 	
-	private String telefone;	
-	
 	private LocalDate aniversario;
-		
-	private Double salario;
+	
+	private Integer numMatricula;
+	
+	private Integer numNIS;
 	
 	@ManyToOne
-	@JoinColumn(name = "instituicao_id")
-	private Instituicao instituicao;
-
-	public Funcionario() {
+	@JoinColumn(name = "funcionario_id")
+	private Funcionario funcionario;
+	
+	public Aluno() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Funcionario(Integer id, String nome, String telefone, LocalDate aniversario, Double salario,
-			Instituicao instituicao) {
+
+	public Aluno(Integer id, String nome, LocalDate aniversario, Integer numMatricula, Integer numNIS) {
+		super();
 		this.id = id;
 		this.nome = nome;
-		this.telefone = telefone;
 		this.aniversario = aniversario;
-		this.salario = salario;
-		this.instituicao = instituicao;
-	}
+		this.numMatricula = numMatricula;
+		this.numNIS = numNIS;
+	}	
 
 	public Integer getId() {
 		return id;
@@ -61,37 +61,28 @@ public class Funcionario implements Serializable{
 		this.nome = nome;
 	}
 
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}		
-	
-	public LocalDate getAniversario() {	
+	public LocalDate getAniversario() {
 		return aniversario;
 	}
-	
+
 	public void setAniversario(LocalDate aniversario) {
-		
 		this.aniversario = aniversario;
 	}
-	
-	public Double getSalario() {
-		return salario;
-	}
-	
-	public void setSalario(Double salario) {
-		this.salario = salario;
-	}
-	
-	public Instituicao getInstituicao() {
-		return instituicao;
+
+	public Integer getNumMatricula() {
+		return numMatricula;
 	}
 
-	public void setInstituicao(Instituicao instituicao) {
-		this.instituicao = instituicao;
+	public void setNumMatricula(Integer numMatricula) {
+		this.numMatricula = numMatricula;
+	}
+
+	public Integer getNumNIS() {
+		return numNIS;
+	}
+
+	public void setNumNIS(Integer numNIS) {
+		this.numNIS = numNIS;
 	}
 
 	@Override
@@ -99,6 +90,7 @@ public class Funcionario implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((numMatricula == null) ? 0 : numMatricula.hashCode());
 		return result;
 	}
 
@@ -110,20 +102,23 @@ public class Funcionario implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Funcionario other = (Funcionario) obj;
+		Aluno other = (Aluno) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (numMatricula == null) {
+			if (other.numMatricula != null)
+				return false;
+		} else if (!numMatricula.equals(other.numMatricula))
+			return false;
 		return true;
 	}
-	
-	
-	
+
 	@Override
-	public String toString() {		
-		return "Funcionario [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", aniversario=" + aniversario
-				+ ", salario=" + salario + ", instituicao=" + instituicao + "]";
+	public String toString() {
+		return "Aluno [id=" + id + ", nome=" + nome + ", aniversario=" + aniversario + ", numMatricula=" + numMatricula
+				+ ", numNIS=" + numNIS + "]";
 	}	
 }

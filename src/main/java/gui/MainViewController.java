@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 import com.ricdev.formulario.MainFX;
+import com.ricdev.formulario.model.services.FuncionarioService;
 import com.ricdev.formulario.model.services.InstituicaoService;
 
 import gui.util.Alerts;
@@ -54,7 +55,10 @@ public class MainViewController implements Initializable {
 	}
 	@FXML
 	public void onMenuItemCadFuncionarioAction() {
-		System.out.println("onMenuItemCadFuncionarioAction");
+		loadView("/gui/FuncionarioList.fxml", (FuncionarioListController controller) -> {
+			controller.setFuncionarioService(new FuncionarioService());
+			controller.updateTableView();
+		});
 	}
 	@FXML
 	public void onMenuItemFichaMatriculaAction() {
@@ -89,15 +93,12 @@ public class MainViewController implements Initializable {
 	public void onMenuItemSobreAction() {
 		loadView("/gui/Sobre.fxml", x -> {});
 		
-	}
-	
-	
+	}	
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		
-	}
-	
+	}	
 	
 	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction ) {
 		try {
@@ -105,7 +106,7 @@ public class MainViewController implements Initializable {
 		VBox newVBox = loader.load();
 		
 		Scene mainScene = MainFX.getMainScene();
-		VBox mainVBox = (VBox)((ScrollPane) mainScene.getRoot()).getContent();
+		VBox mainVBox = (VBox)((ScrollPane) mainScene.getRoot()).getContent();		
 		
 		Node mainMenu = mainVBox.getChildren().get(0);
 		mainVBox.getChildren().clear();

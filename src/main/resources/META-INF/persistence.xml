@@ -8,8 +8,11 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>entities.Instituicao</class>
+		<class>entities.Funcionario</class>
+
+		
 		<properties>
-			
+
 			<!-- properties of connection -->
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />

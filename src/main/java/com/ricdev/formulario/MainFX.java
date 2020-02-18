@@ -1,6 +1,9 @@
 package com.ricdev.formulario;
 
 import java.io.IOException;
+import java.util.Locale;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
+@SpringBootApplication
 public class MainFX extends Application {
 
 	private static Scene mainScene;
@@ -35,6 +39,7 @@ public class MainFX extends Application {
 	}
 
 	public static void main(String[] args) {
-		launch(args);
+		Locale.setDefault(Locale.ROOT);
+		launch(args);		
 	}
 }

@@ -7,8 +7,7 @@ import com.ricdev.formulario.model.entities.Instituicao;
 public interface InstituicaoDAO {
 	
 	Instituicao insert(Instituicao obj);
-	Instituicao updateOrInsert(Instituicao obj);
-	//Instituicao deleteById(Integer id);
+	Instituicao updateOrInsert(Instituicao obj);	
 	void deleteById(Integer id);
 	
 	Instituicao findById(Integer id);
