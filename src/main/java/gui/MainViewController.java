@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 import com.ricdev.formulario.MainFX;
+import com.ricdev.formulario.model.services.AlunoService;
 import com.ricdev.formulario.model.services.FuncionarioService;
 import com.ricdev.formulario.model.services.InstituicaoService;
 
@@ -63,6 +64,12 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemFichaMatriculaAction() {
 		System.out.println("onMenuItemFichaMatriculaAction");
+		loadView("/gui/AlunoList.fxml", (AlunoListController controller) -> {
+		controller.setAlunoService(new AlunoService());
+		controller.updateTableView();
+		});
+		
+		
 	}
 	@FXML
 	public void onMenuItemFichaSaudeAction() {

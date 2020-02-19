@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox prefHeight="288.0" prefWidth="641.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+   <children>
+      <Label text="Registro de Matricula Aluno">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="5.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="New" textFill="BLUE" />
+        </items>
+      </ToolBar>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Dados do Usuario">
+               <content>
+                  <TableView prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Id" />
+                        <TableColumn prefWidth="75.0" text="Matrícula" />
+                      <TableColumn prefWidth="75.0" text="Nome" />
+                        <TableColumn prefWidth="92.0" text="Data Nasc" />
+                        <TableColumn prefWidth="75.0" text="NIS" />
+                        <TableColumn prefWidth="75.0" text="update" />
+                        <TableColumn prefWidth="75.0" text="delete" />
+                    </columns>
+                  </TableView>
+               </content>
+            </Tab>
+            <Tab text="Dados do Responsavel">
+               <content>
+                  <TableView prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="142.0" text="Nome do Responsavel" />
+                        <TableColumn prefWidth="101.0" text="Endereço" />
+                        <TableColumn prefWidth="75.0" text="Telefone" />
+                        <TableColumn prefWidth="75.0" text="Data Nasc" />
+                        <TableColumn prefWidth="75.0" text="Rg" />
+                        <TableColumn prefWidth="75.0" text="Cpf" />
+                    </columns>
+                  </TableView>
+               </content>
+            </Tab>
+          <Tab text="Ficha Médica">
+               <content>
+                  <TableView prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="98.0" text="Nome Medico" />
+                        <TableColumn prefWidth="75.0" text="CRM" />
+                        <TableColumn prefWidth="75.0" text="update" />
+                        <TableColumn prefWidth="75.0" text="delete" />
+                    </columns>
+                  </TableView>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</VBox>

@@ -32,6 +32,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -129,6 +130,7 @@ public class FuncionarioListController implements Initializable, DataChangeListe
 
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Entre com os dados da Intituicao");
+			dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/gui\\css\\JavaImagem.jpg")));
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);

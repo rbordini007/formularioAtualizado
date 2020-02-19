@@ -22,11 +22,10 @@
                 <Menu mnemonicParsing="false" text="Registro">
                   <items>
                     <MenuItem fx:id="menuItemCadInstituicao" mnemonicParsing="false" onAction="#onMenuItemCadInstituicaoAction" text="Cadastro Instituição" />
-                        <MenuItem fx:id="menuItemCadFuncionario" mnemonicParsing="false" onAction="#onMenuItemCadFuncionarioAction" text="Cadastro Funcionario" />
                         <Menu mnemonicParsing="false" text="Registro de Usuario">
                           <items>
-                            <MenuItem fx:id="menuItemFichaMatricula" mnemonicParsing="false" onAction="#onMenuItemFichaMatriculaAction" text="Ficha de Matrícula" />
-                              <MenuItem fx:id="menuItemFichaSaude" mnemonicParsing="false" onAction="#onMenuItemFichaSaudeAction" text="Ficha de Saúde" />
+                              <MenuItem fx:id="menuItemCadFuncionario" mnemonicParsing="false" onAction="#onMenuItemCadFuncionarioAction" text="Cadastro Funcionario" />
+                            <MenuItem fx:id="menuItemFichaMatricula" mnemonicParsing="false" onAction="#onMenuItemFichaMatriculaAction" text="Cadastro de Usúario" />
                           </items>
                         </Menu>
                   </items>
